@@ -1,261 +1,777 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ayala Corporation — Sales Briefing</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#f0f2f4; --card:#ffffff; --accent:#1a3a5c; --gold:#c8963e; --muted:#6b6255; --rule:#e6e0d6;
-    --maxw:980px; --pad:14px;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#222;background:var(--bg);-webkit-font-smoothing:antialiased}
-  .wrap{max-width:var(--maxw);margin:28px auto;padding:18px;background:var(--card);border-radius:10px;box-shadow:0 10px 30px rgba(18,24,32,.06)}
-  header{display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:10px}
-  .title-block{flex:1}
-  h1{font-family:'Playfair Display',serif;margin:0;font-size:24px;color:var(--accent)}
-  .subtitle{font-size:13px;color:var(--muted);margin-top:6px}
-  .meta{font-family:'IBM Plex Sans',monospace;font-size:12px;color:var(--muted);text-align:right;min-width:180px}
-  .confidence{display:inline-block;background:#2d8a4e;color:#fff;padding:6px 10px;border-radius:6px;font-size:12px;margin-top:8px}
-  /* CRM compact */
-  .crm{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;background:#fbfbfb;border:1px solid var(--rule);padding:10px;border-radius:8px;margin:14px 0;font-size:13px}
-  .crm-label{font-weight:700;color:var(--accent);font-size:13px;margin-bottom:6px}
-  .crm-left,.crm-right{line-height:1.35}
-  /* layout */
-  .grid{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-top:12px}
-  @media (max-width:980px){.grid{grid-template-columns:1fr}}
-  .panel{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px}
-  .panel h2{margin:0 0 8px 0;font-size:16px;color:var(--accent);font-family:'Playfair Display',serif}
-  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
-  .stat{background:#fbf6ef;padding:10px;border-radius:6px;text-align:center;font-size:13px}
-  .stat .val{font-family:'Playfair Display',serif;font-size:16px;color:var(--accent);font-weight:700}
-  .compact{font-size:13px;color:#333;line-height:1.45}
-  /* news */
-  .news-item{display:flex;flex-direction:column;border-radius:6px;padding:10px;background:#fcfcfc;border:1px solid var(--rule);margin-bottom:10px}
-  .news-head{font-weight:700;color:#111;font-size:14px}
-  .news-meta{font-family:'IBM Plex Sans',monospace;font-size:12px;color:var(--muted);margin-top:6px}
-  .news-why{font-size:13px;color:#444;margin-top:8px}
-  .source-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;padding:6px 10px;border-radius:6px;text-decoration:none;font-size:13px}
-  /* why they might buy */
-  .signal{padding:10px;border-radius:6px;background:#fbfbfb;border:1px solid var(--rule);margin-bottom:10px}
-  .signal strong{color:var(--accent)}
-  .signal p{margin:6px 0 0 0;color:#444;font-size:13px}
-  /* who to talk to */
-  .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  @media (max-width:980px){.contacts{grid-template-columns:1fr}}
-  .contact{background:#fff;border:1px solid var(--rule);padding:10px;border-radius:8px;display:flex;flex-direction:column;gap:6px}
-  .contact .name{font-weight:700;color:var(--accent);font-size:14px}
-  .contact .title{font-size:13px;color:var(--muted)}
-  .contact .why{font-size:13px;color:#444}
-  .linkedin{display:inline-block;background:#0a66c2;color:#fff;padding:6px 10px;border-radius:6px;text-decoration:none;font-size:13px;align-self:flex-start}
-  /* footer */
-  footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:13px;color:var(--muted)}
-  .actions{display:flex;gap:10px;align-items:center}
-  .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-size:13px}
-  .btn.secondary{background:#f4f4f4;color:#222;border:1px solid var(--rule)}
-  /* compact tweaks to save space */
-  .panel, .contact, .news-item, .signal{padding:10px}
-  .stat-grid .stat{padding:8px}
-  .crm, header, footer{padding:10px}
-  .subtitle, .meta, .crm-left, .crm-right, .compact, .news-why, .signal p, .contact .why{font-size:13px}
-  /* focus */
-  a:focus, button:focus{outline:3px solid rgba(26,58,92,.12);outline-offset:2px}
-  /* print-friendly */
-  @media print{
-    body{background:#fff}
-    .wrap{box-shadow:none;border:none}
-    .source-btn, .linkedin, .actions{display:none}
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ayala Corporation — Sales Briefing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f0f2f4;
+      --card: #ffffff;
+      --accent: #1a3a5c;
+      --accent-dark: #10263d;
+      --gold: #c8963e;
+      --muted: #6b6255;
+      --text: #222222;
+      --soft: #fbfbfb;
+      --warm: #fbf6ef;
+      --rule: #e6e0d6;
+      --success: #2d8a4e;
+      --linkedin: #0a66c2;
+      --shadow: 0 10px 30px rgba(18, 24, 32, 0.06);
+      --radius-lg: 12px;
+      --radius-md: 8px;
+      --maxw: 980px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      padding: 28px 16px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 18px;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.1;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    .subtitle,
+    .meta,
+    .compact,
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+    }
+
+    .meta {
+      min-width: 220px;
+      text-align: right;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: var(--success);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .crm {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.85fr);
+      gap: 12px;
+      align-items: start;
+      margin: 14px 0;
+      padding: 12px;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      background: var(--soft);
+      font-size: 13px;
+    }
+
+    .crm-title {
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .crm-line {
+      margin: 2px 0;
+      line-height: 1.4;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 16px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      padding: 12px;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      background: var(--card);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .stat {
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      background: var(--warm);
+    }
+
+    .stat-value {
+      display: block;
+      margin-bottom: 2px;
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      display: block;
+      color: #333333;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .card-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .news-card,
+    .signal-card,
+    .contact-card {
+      padding: 10px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: #fcfcfc;
+    }
+
+    .news-title,
+    .signal-title,
+    .contact-name {
+      margin: 0;
+      color: #111111;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .signal-title,
+    .contact-name {
+      color: var(--accent);
+    }
+
+    .news-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-family: "IBM Plex Sans", monospace;
+      font-size: 12px;
+    }
+
+    .news-why,
+    .signal-copy,
+    .contact-copy,
+    .leadership-copy,
+    .talk-track-list {
+      color: #444444;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .news-why,
+    .signal-copy,
+    .contact-copy {
+      margin: 8px 0 0;
+    }
+
+    .source-link,
+    .linkedin-link,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border: 0;
+      border-radius: 7px;
+      color: #ffffff;
+      background: var(--accent);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .source-link:hover,
+    .btn:hover {
+      background: var(--accent-dark);
+    }
+
+    .linkedin-link {
+      align-self: flex-start;
+      background: var(--linkedin);
+    }
+
+    .btn.secondary {
+      color: #222222;
+      border: 1px solid var(--rule);
+      background: #f4f4f4;
+    }
+
+    .btn.secondary:hover {
+      background: #eeeeee;
+    }
+
+    .contacts {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .contact-title {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .leadership-item + .leadership-item {
+      margin-top: 8px;
+    }
+
+    .leadership-name {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .talk-track-list {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+
+    .talk-track-list li + li {
+      margin-top: 6px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(26, 58, 92, 0.25);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 980px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .layout,
+      .crm {
+        grid-template-columns: 1fr;
+      }
+
+      .meta {
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 14px;
+      }
+
+      .header,
+      .footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .meta {
+        text-align: left;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      @page {
+        margin: 12mm;
+      }
+
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .page {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .panel,
+      .news-card,
+      .signal-card,
+      .contact-card,
+      .crm {
+        break-inside: avoid;
+      }
+
+      .source-link,
+      .linkedin-link,
+      .actions {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <div class="wrap" id="page">
-    <header>
-      <div class="title-block">
-        <h1>Ayala Corporation</h1>
-        <div class="subtitle">PSE: AC · Makati City, Philippines · est. 1834</div>
+  <main class="page" id="page">
+    <header class="header" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Sales briefing</p>
+        <h1 id="page-title"></h1>
+        <div class="subtitle" id="company-subtitle"></div>
       </div>
-      <div class="meta" aria-hidden="false">
-        <div>Prepared: Apr 28, 2026</div>
-        <div style="margin-top:8px"><span class="confidence" aria-hidden="true">High Confidence · Web Verified</span></div>
+      <div class="meta">
+        <div id="prepared-date"></div>
+        <div class="badge" id="confidence-badge"></div>
       </div>
     </header>
 
-    <!-- CRM Call Context (clearly labeled, compact) -->
-    <div class="crm" role="region" aria-label="CRM Call Context">
+    <section class="crm" aria-labelledby="crm-title">
       <div>
-        <div class="crm-label">CRM Call Context</div>
-        <div class="crm-left">
-          <div><strong>Meeting with:</strong> <span id="meeting-person">Maria Santos</span></div>
-          <div><strong>Designation:</strong> <span id="meeting-designation">VP Finance, Ayala Land</span></div>
-        </div>
+        <div class="crm-title" id="crm-title">CRM Call Context</div>
+        <div id="crm-primary"></div>
       </div>
-      <div class="crm-right">
-        <div><strong>When:</strong> Apr 30, 2026 · 10:00 AM</div>
-        <div><strong>Stage:</strong> Evaluation</div>
-        <div><strong>Deal size:</strong> ~$2.5M</div>
-        <div><strong>Owner:</strong> John Smith</div>
-      </div>
-    </div>
+      <div id="crm-secondary"></div>
+    </section>
 
-    <div class="grid">
-      <!-- Left column -->
-      <div>
-        <!-- 1. Company Snapshot -->
+    <div class="layout">
+      <div class="stack">
         <section class="panel" aria-labelledby="snapshot-heading">
-          <h2 id="snapshot-heading">1. Company Snapshot</h2>
-          <div class="stat-grid" role="list">
-            <div class="stat" role="listitem"><div class="val">₱48.3B / ~$860M</div><div class="compact">2025 Core Net Income</div></div>
-            <div class="stat" role="listitem"><div class="val">~$5.7B</div><div class="compact">Revenue (FY2024)</div></div>
-            <div class="stat" role="listitem"><div class="val">64K+</div><div class="compact">Employees (Group)</div></div>
-            <div class="stat" role="listitem"><div class="val">12+</div><div class="compact">Business Units</div></div>
-          </div>
-          <p class="compact">Ayala operates across real estate (Ayala Land), banking (BPI), telecoms (Globe), energy (ACEN), healthcare (AC Health), logistics, automotive, and electronics manufacturing. Mitsubishi acquired 50% of AC Ventures (GCash stake) for ~$330M in 2025.</p>
+          <h2 id="snapshot-heading">Company Snapshot</h2>
+          <div class="stat-grid" id="stats" role="list"></div>
+          <p class="compact" id="company-summary"></p>
         </section>
 
-        <!-- 3. Recent News -->
         <section class="panel" aria-labelledby="news-heading">
-          <h2 id="news-heading">3. Recent News</h2>
-
-          <article class="news-item" aria-labelledby="news1">
-            <div class="news-head" id="news1">Apr 24, 2026 — CAPEX cut from ₱230B to ₱180B; "Resiliency Over Growth"</div>
-            <div class="news-meta">Impact: Group-wide CAPEX recalibration</div>
-            <div class="news-why"><strong>Why this matters:</strong> With CAPEX reduced ~22%, the group will prioritize cash flow and operational efficiency. ERP projects that deliver faster reporting, tighter cost controls, and improved cash forecasting become higher priority for finance and operations.</div>
-            <div class="news-source"><a class="source-btn" href="#" target="_blank" rel="noopener">View source</a></div>
-          </article>
-
-          <article class="news-item" aria-labelledby="news2">
-            <div class="news-head" id="news2">Mar 9, 2026 — Finance Controller departs; Acting Controller appointed</div>
-            <div class="news-meta">Impact: Finance function disruption</div>
-            <div class="news-why"><strong>Why this matters:</strong> Sudden leadership change increases risk around month-end close and audit readiness. ERP solutions that improve audit trails, automate reconciliations, and reduce manual close steps address immediate pain.</div>
-            <div class="news-source"><a class="source-btn" href="#" target="_blank" rel="noopener">View source</a></div>
-          </article>
-
-          <article class="news-item" aria-labelledby="news3">
-            <div class="news-head" id="news3">Jan 2026 — New CFO (Syquia) takes full role; Ayala Land exec retirements</div>
-            <div class="news-meta">Impact: Leadership refresh across group</div>
-            <div class="news-why"><strong>Why this matters:</strong> New CFOs typically reassess systems and vendor relationships. This is a prime window to influence roadmap and secure executive sponsorship for ERP transformation.</div>
-            <div class="news-source"><a class="source-btn" href="#" target="_blank" rel="noopener">View source</a></div>
-          </article>
+          <h2 id="news-heading">Trigger Events</h2>
+          <div class="card-list" id="news-list"></div>
         </section>
 
-        <!-- 4. Why They Might Buy -->
-        <section class="panel" aria-labelledby="why-heading">
-          <h2 id="why-heading">4. Why They Might Buy</h2>
-
-          <div class="signal" role="note">
-            <strong>Finance leadership disruption</strong>
-            <p>Three senior finance changes in ~90 days (CFO, Controller, CAE adjustments) create an urgent need for consistent, auditable financial processes. ERP reduces spreadsheet dependency, centralizes ledgers, and speeds month-end close — lowering operational risk during transitions.</p>
-          </div>
-
-          <div class="signal" role="note">
-            <strong>Efficiency and cash discipline mandate</strong>
-            <p>CEO directive to prioritise "resiliency over growth" means tighter CAPEX and focus on cash conversion. ERP enables multi-entity cash visibility, scenario planning, and automated intercompany eliminations — critical to protect margins under constrained CAPEX.</p>
-          </div>
-
-          <div class="signal" role="note">
-            <strong>Outdated HCM across 64K employees</strong>
-            <p>Ramco (2014) is aging: payroll complexity, compliance across jurisdictions, and talent mobility are pain points. A modern ERP HCM module reduces manual HR work, improves compliance, and supports workforce planning tied to cost control goals.</p>
-          </div>
-
-          <div class="signal" role="note">
-            <strong>JV and investor governance expectations</strong>
-            <p>Mitsubishi's investment raises the bar for governance and reporting. ERP helps meet international audit and reporting standards, important for JV partners and future capital raises.</p>
-          </div>
+        <section class="panel" aria-labelledby="buying-signals-heading">
+          <h2 id="buying-signals-heading">Buying Signals</h2>
+          <div class="card-list" id="signals-list"></div>
         </section>
       </div>
 
-      <!-- Right column -->
-      <aside>
-        <!-- 2. Leadership Team -->
-        <section class="panel" aria-labelledby="lead-heading">
-          <h2 id="lead-heading">2. Leadership Team</h2>
-          <div class="compact" style="margin-bottom:8px"><strong>Cezar P. "Bong" Consing</strong> — President & CEO. Former BPI CEO; driving "resiliency over growth". Executive sponsor potential for group-level ERP mandates.</div>
-          <div class="compact" style="margin-bottom:8px"><strong>Juan Carlos L. Syquia</strong> — CFO (effective Jan 2026). 30+ years in corporate banking; primary economic buyer for finance transformation.</div>
-          <div class="compact" style="margin-bottom:8px"><strong>Catherine H. Ang</strong> — Acting Controller & Chief Audit Executive. Double-hatting; technical champion for reporting and audit capabilities.</div>
-          <div class="compact"><strong>Francisco Romero Milán</strong> — CHRO. Oversees HR for 64K employees; HCM sponsor for workforce modules and change management.</div>
+      <aside class="stack" aria-label="Leadership and outreach guidance">
+        <section class="panel" aria-labelledby="leadership-heading">
+          <h2 id="leadership-heading">Leadership & Buying Committee</h2>
+          <div id="leadership-list"></div>
         </section>
 
-        <!-- 5. Who To Talk To (expanded) -->
-        <section class="panel" aria-labelledby="who-heading">
-          <h2 id="who-heading">5. Who To Talk To</h2>
-          <div class="contacts" role="list">
-            <div class="contact" role="listitem">
-              <div class="name">Juan Carlos L. Syquia</div>
-              <div class="title">CFO, Ayala Corporation</div>
-              <div class="why">New in role (Jan 2026). Will define finance transformation priorities and vendor shortlists. Focus on consolidated financial visibility, close acceleration, and ROI on cost control.</div>
-              <a class="linkedin" href="https://www.linkedin.com/search/results/people/?keywords=Juan+Carlos+Syquia+Ayala" target="_blank" rel="noopener">LinkedIn profile ↗</a>
-            </div>
-
-            <div class="contact" role="listitem">
-              <div class="name">Catherine H. Ang</div>
-              <div class="title">Acting Controller & Chief Audit Executive</div>
-              <div class="why">Holding two critical finance roles after an unexpected departure. Likely to champion systems that reduce manual close work and improve audit trails.</div>
-              <a class="linkedin" href="https://www.linkedin.com/search/results/people/?keywords=Catherine+Ang+Ayala+Corporation" target="_blank" rel="noopener">LinkedIn profile ↗</a>
-            </div>
-
-            <div class="contact" role="listitem">
-              <div class="name">Francisco Romero Milán</div>
-              <div class="title">CHRO, Head of Corporate Resources</div>
-              <div class="why">Responsible for 64K+ employees on a 2014 HCM stack. Key sponsor for HCM modules, payroll modernization, and workforce analytics.</div>
-              <a class="linkedin" href="https://www.linkedin.com/search/results/people/?keywords=Francisco+Romero+Milan+Ayala" target="_blank" rel="noopener">LinkedIn profile ↗</a>
-            </div>
-          </div>
+        <section class="panel" aria-labelledby="contacts-heading">
+          <h2 id="contacts-heading">Recommended Outreach Map</h2>
+          <div class="contacts" id="contacts-list" role="list"></div>
         </section>
 
-        <!-- Tactical notes -->
-        <section class="panel" aria-labelledby="tactics-heading">
-          <h2 id="tactics-heading">Tactical Notes for the Meeting</h2>
-          <ul style="margin:8px 0 0 18px;color:#444;font-size:13px;line-height:1.45">
-            <li>Open with empathy on CAPEX constraints; frame ERP as an efficiency enabler, not just spend.</li>
-            <li>Lead with finance use cases: faster close, consolidated reporting, audit readiness.</li>
-            <li>Bring HCM ROI examples for CHRO: payroll automation, compliance, and headcount planning.</li>
-            <li>Ask about JV governance requirements to surface Mitsubishi-related controls.</li>
-          </ul>
+        <section class="panel" aria-labelledby="talk-track-heading">
+          <h2 id="talk-track-heading">Meeting Talk Track</h2>
+          <ul class="talk-track-list" id="talk-track-list"></ul>
         </section>
       </aside>
     </div>
 
-    <footer>
-      <div>Prepared Apr 28, 2026 · Sources: Ayala ASM, BusinessWorld, Manila Bulletin</div>
+    <footer class="footer">
+      <div id="footer-note"></div>
       <div class="actions">
-        <!-- Print / Save as PDF (user chooses Save as PDF in print dialog) -->
-        <button class="btn" id="printBtn" title="Open print dialog (choose Save as PDF)">Print / Save as PDF</button>
-        <!-- Copy briefing -->
-        <button class="btn secondary" id="copyBtn" title="Copy briefing to clipboard">Copy briefing</button>
+        <button class="btn" type="button" id="printBtn">Print / Save as PDF</button>
+        <button class="btn secondary" type="button" id="copyBtn">Copy briefing</button>
       </div>
     </footer>
-  </div>
+  </main>
 
-<script>
-  // Print button: opens browser print dialog (user can choose Save as PDF)
-  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+  <script>
+    const briefing = {
+      company: {
+        name: "Ayala Corporation",
+        ticker: "PSE: AC",
+        location: "Makati City, Philippines",
+        established: "1834",
+        preparedDate: "Apr 28, 2026",
+        confidence: "High Confidence · Web Verified",
+        summary:
+          "Ayala operates across real estate, banking, telecoms, energy, healthcare, logistics, automotive, and electronics manufacturing. Mitsubishi acquired 50% of AC Ventures' GCash stake for approximately $330M in 2025.",
+        stats: [
+          { value: "₱48.3B / ~$860M", label: "2025 Core Net Income" },
+          { value: "~$5.7B", label: "Revenue (FY2024)" },
+          { value: "64K+", label: "Employees (Group)" },
+          { value: "12+", label: "Business Units" }
+        ],
+        sources: "Ayala ASM, BusinessWorld, Manila Bulletin"
+      },
+      meeting: {
+        person: "Maria Santos",
+        designation: "VP Finance, Ayala Land",
+        when: "Apr 30, 2026 · 10:00 AM",
+        stage: "Evaluation",
+        dealSize: "~$2.5M",
+        owner: "John Smith"
+      },
+      leadership: [
+        {
+          name: "Cezar P. \"Bong\" Consing",
+          role: "President & CEO",
+          note: "Former BPI CEO; driving the group's resiliency-over-growth agenda. Potential sponsor for group-level ERP mandates."
+        },
+        {
+          name: "Juan Carlos L. Syquia",
+          role: "CFO",
+          note: "Effective Jan 2026. Primary economic buyer for finance transformation and consolidated reporting."
+        },
+        {
+          name: "Catherine H. Ang",
+          role: "Acting Controller & Chief Audit Executive",
+          note: "Double-hatting across finance control and audit. Strong technical champion for reporting, close, and audit-trail capabilities."
+        },
+        {
+          name: "Francisco Romero Milán",
+          role: "CHRO, Head of Corporate Resources",
+          note: "Oversees HR across a large group workforce. Potential sponsor for HCM modernization and change management."
+        }
+      ],
+      news: [
+        {
+          title: "Apr 24, 2026 — CAPEX cut from ₱230B to ₱180B; resiliency over growth",
+          impact: "Group-wide CAPEX recalibration",
+          why:
+            "With CAPEX reduced by roughly 22%, the group is likely to prioritize cash flow and operational efficiency. ERP projects that deliver faster reporting, tighter cost controls, and improved cash forecasting become more relevant.",
+          sourceUrl: ""
+        },
+        {
+          title: "Mar 9, 2026 — Finance Controller departs; Acting Controller appointed",
+          impact: "Finance function disruption",
+          why:
+            "Leadership change increases risk around month-end close and audit readiness. ERP capabilities around audit trails, reconciliations, and close automation address immediate finance pain points.",
+          sourceUrl: ""
+        },
+        {
+          title: "Jan 2026 — New CFO takes full role; Ayala Land executive retirements",
+          impact: "Leadership refresh across group",
+          why:
+            "New CFOs often reassess systems, governance, and vendor relationships. This is a strong timing window to influence transformation roadmap and executive sponsorship.",
+          sourceUrl: ""
+        }
+      ],
+      buyingSignals: [
+        {
+          title: "Finance leadership disruption",
+          copy:
+            "Multiple senior finance changes create a need for consistent, auditable financial processes. ERP reduces spreadsheet dependency, centralizes ledgers, and speeds month-end close."
+        },
+        {
+          title: "Efficiency and cash discipline mandate",
+          copy:
+            "A resiliency-over-growth message makes cost control and cash visibility board-level priorities. ERP can support multi-entity cash visibility, scenario planning, and intercompany eliminations."
+        },
+        {
+          title: "Aging HCM environment",
+          copy:
+            "A large distributed workforce creates payroll, compliance, talent mobility, and workforce planning complexity. Modern HCM can reduce manual HR work and improve planning discipline."
+        },
+        {
+          title: "JV and investor governance expectations",
+          copy:
+            "Strategic investors and JV partners typically raise expectations on reporting cadence, controls, and governance. ERP can support stronger auditability and standardized reporting."
+        }
+      ],
+      contacts: [
+        {
+          name: "Juan Carlos L. Syquia",
+          title: "CFO, Ayala Corporation",
+          why:
+            "New in role and likely to define finance transformation priorities. Lead with consolidated visibility, faster close, and ROI on cost control.",
+          linkedinSearch: "https://www.linkedin.com/search/results/people/?keywords=Juan+Carlos+Syquia+Ayala"
+        },
+        {
+          name: "Catherine H. Ang",
+          title: "Acting Controller & Chief Audit Executive",
+          why:
+            "Likely to champion tools that reduce manual close work, strengthen audit trails, and improve control reliability.",
+          linkedinSearch: "https://www.linkedin.com/search/results/people/?keywords=Catherine+Ang+Ayala+Corporation"
+        },
+        {
+          name: "Francisco Romero Milán",
+          title: "CHRO, Head of Corporate Resources",
+          why:
+            "Potential sponsor for HCM modules, payroll modernization, workforce analytics, and change management.",
+          linkedinSearch: "https://www.linkedin.com/search/results/people/?keywords=Francisco+Romero+Milan+Ayala"
+        }
+      ],
+      talkTrack: [
+        "Open with empathy on CAPEX constraints; frame ERP as an efficiency and control lever, not discretionary spend.",
+        "Lead with finance use cases: faster close, consolidated reporting, audit readiness, and cash visibility.",
+        "Quantify HCM ROI around payroll automation, compliance risk reduction, and headcount planning.",
+        "Ask about JV governance requirements to surface investor-led reporting and control expectations."
+      ]
+    };
 
-  // Copy briefing: copy visible briefing text to clipboard
-  document.getElementById('copyBtn').addEventListener('click', async function(){
-    try {
-      const el = document.getElementById('page');
-      const text = el.innerText.replace(/\s+\n/g, '\n').trim();
-      await navigator.clipboard.writeText(text);
-      const original = this.textContent;
-      this.textContent = 'Copied';
-      setTimeout(()=> this.textContent = original, 1500);
-    } catch (e) {
-      const original = this.textContent;
-      this.textContent = 'Copy failed';
-      setTimeout(()=> this.textContent = original, 1500);
+    const escapeHtml = (value) =>
+      String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    const createLine = (label, value) => `
+      <div class="crm-line"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>
+    `;
+
+    function renderBriefing(data) {
+      document.title = `${data.company.name} — Sales Briefing`;
+      document.getElementById("page-title").textContent = data.company.name;
+      document.getElementById("company-subtitle").textContent =
+        `${data.company.ticker} · ${data.company.location} · est. ${data.company.established}`;
+      document.getElementById("prepared-date").textContent = `Prepared: ${data.company.preparedDate}`;
+      document.getElementById("confidence-badge").textContent = data.company.confidence;
+      document.getElementById("company-summary").textContent = data.company.summary;
+      document.getElementById("footer-note").textContent =
+        `Prepared ${data.company.preparedDate} · Sources: ${data.company.sources}`;
+
+      document.getElementById("crm-primary").innerHTML = [
+        createLine("Meeting with", data.meeting.person),
+        createLine("Designation", data.meeting.designation)
+      ].join("");
+
+      document.getElementById("crm-secondary").innerHTML = [
+        createLine("When", data.meeting.when),
+        createLine("Stage", data.meeting.stage),
+        createLine("Deal size", data.meeting.dealSize),
+        createLine("Owner", data.meeting.owner)
+      ].join("");
+
+      document.getElementById("stats").innerHTML = data.company.stats
+        .map(
+          (stat) => `
+            <div class="stat" role="listitem">
+              <span class="stat-value">${escapeHtml(stat.value)}</span>
+              <span class="stat-label">${escapeHtml(stat.label)}</span>
+            </div>
+          `
+        )
+        .join("");
+
+      document.getElementById("leadership-list").innerHTML = data.leadership
+        .map(
+          (leader) => `
+            <div class="leadership-item leadership-copy">
+              <span class="leadership-name">${escapeHtml(leader.name)}</span> —
+              <strong>${escapeHtml(leader.role)}.</strong>
+              ${escapeHtml(leader.note)}
+            </div>
+          `
+        )
+        .join("");
+
+      document.getElementById("news-list").innerHTML = data.news
+        .map((item, index) => {
+          const sourceLink = item.sourceUrl
+            ? `<a class="source-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">View source</a>`
+            : `<span class="small">Source URL not added</span>`;
+
+          return `
+            <article class="news-card" aria-labelledby="news-${index}">
+              <h3 class="news-title" id="news-${index}">${escapeHtml(item.title)}</h3>
+              <div class="news-meta">Impact: ${escapeHtml(item.impact)}</div>
+              <p class="news-why"><strong>Why this matters:</strong> ${escapeHtml(item.why)}</p>
+              ${sourceLink}
+            </article>
+          `;
+        })
+        .join("");
+
+      document.getElementById("signals-list").innerHTML = data.buyingSignals
+        .map(
+          (signal) => `
+            <article class="signal-card">
+              <h3 class="signal-title">${escapeHtml(signal.title)}</h3>
+              <p class="signal-copy">${escapeHtml(signal.copy)}</p>
+            </article>
+          `
+        )
+        .join("");
+
+      document.getElementById("contacts-list").innerHTML = data.contacts
+        .map(
+          (contact) => `
+            <article class="contact-card" role="listitem">
+              <h3 class="contact-name">${escapeHtml(contact.name)}</h3>
+              <div class="contact-title">${escapeHtml(contact.title)}</div>
+              <p class="contact-copy">${escapeHtml(contact.why)}</p>
+              <a class="linkedin-link" href="${escapeHtml(contact.linkedinSearch)}" target="_blank" rel="noopener noreferrer">LinkedIn search ↗</a>
+            </article>
+          `
+        )
+        .join("");
+
+      document.getElementById("talk-track-list").innerHTML = data.talkTrack
+        .map((item) => `<li>${escapeHtml(item)}</li>`)
+        .join("");
     }
-  });
 
-  // Populate meeting person and designation from CRM placeholder (replace with real CRM injection)
-  (function populateFromCRM(){
-    const meetingPerson = 'Maria Santos';
-    const meetingDesignation = 'VP Finance, Ayala Land';
-    document.getElementById('meeting-person').textContent = meetingPerson;
-    document.getElementById('meeting-designation').textContent = meetingDesignation;
-  })();
-</script>
+    async function copyBriefing(button) {
+      const page = document.getElementById("page");
+      const text = page.innerText.replace(/\s+\n/g, "\n").trim();
+      const originalText = button.textContent;
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+        }
+
+        button.textContent = "Copied";
+      } catch (error) {
+        button.textContent = "Copy failed";
+        console.error("Unable to copy briefing", error);
+      } finally {
+        window.setTimeout(() => {
+          button.textContent = originalText;
+        }, 1500);
+      }
+    }
+
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+    document.getElementById("copyBtn").addEventListener("click", function () {
+      copyBriefing(this);
+    });
+
+    renderBriefing(briefing);
+  </script>
 </body>
 </html>
